@@ -1,15 +1,8 @@
-import { PageWrapper, theme } from './themes';
-import { Box } from '@mui/system';
-import LoginPage from './pages/LoginPage';
+import { PageWrapper, theme } from "./themes";
+import MyRoutes from "./routes";
 
 const App = () => {
-  return (
-    <PageWrapper theme={ theme }>
-      <Box>
-        <LoginPage />
-      </Box>
-    </PageWrapper>
-  );
+  return <PageWrapper theme={theme}>{<MyRoutes />}</PageWrapper>;
 };
 
 export default App;

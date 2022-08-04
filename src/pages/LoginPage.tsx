@@ -1,17 +1,12 @@
-import { Button, Grid, TextField } from '@mui/material';
+import { Grid } from "@mui/material";
+import AuthLayout from "../component/layouts/AuthLayout";
 
 const LoginPage = () => {
-    return (
-        <Grid>
-            <form>
-                <TextField type="email" />  
-                <TextField type="password" />
-                <Button type="submit">
-                    Login
-                </Button>
-            </form>
-        </Grid>
-    )
+  return (
+    <AuthLayout>
+      <Grid>Login</Grid>
+    </AuthLayout>
+  );
 };
 
 export default LoginPage;

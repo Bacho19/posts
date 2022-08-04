@@ -7,6 +7,7 @@ interface DefaultPaletteOptions extends PaletteOptions {
   warning: SimplePaletteColorOptions;
   info: SimplePaletteColorOptions;
   success: SimplePaletteColorOptions;
+  darkBlue: string;
 }
 
 const palette: DefaultPaletteOptions = {
@@ -33,7 +34,7 @@ const palette: DefaultPaletteOptions = {
     secondary: '#343A40',
     disabled: '#A4A4A4',
   },
-  divider: '#4d4c52',
+  darkBlue: '#12345C',
 };
 
 export default palette;
