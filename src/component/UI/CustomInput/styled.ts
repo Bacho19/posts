@@ -11,14 +11,20 @@ export const StyledInput = styled.input`
     width: 100%;
 `;
 
-export const InputLabel = styled.p`
+export const InputLabel = styled.p<{isError?: boolean}>`
     font-size: 16px;
     font-weight: 500;
     color: #12345C;
-    margin-bottom: 8px;
+    margin-bottom: ${({isError}) => isError ? '0' : '8px'};
 `;
 
 export const InputWrapper = styled.div<{m?: string}>`
     width: 100%;
     margin: ${({m}) => m};
+`;
+
+export const InputErrorMessage = styled.p`
+    font-size: 12px;
+    color: red;
+    margin-bottom: 2px;
 `;

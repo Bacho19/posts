@@ -7,17 +7,17 @@ import {
 
 interface RegisterValidatorItemProps {
   isChecked: boolean;
+  text: string;
 }
 
 const RegisterValidatorItem: FC<RegisterValidatorItemProps> = ({
   isChecked,
+  text,
 }) => {
   return (
     <ValidatorItemWrapper>
       <ValidatorItemCircle isChecked={isChecked} />
-      <ValidatorItemText isChecked={isChecked}>
-        Concalas at least one special character
-      </ValidatorItemText>
+      <ValidatorItemText isChecked={isChecked}>{text}</ValidatorItemText>
     </ValidatorItemWrapper>
   );
 };
