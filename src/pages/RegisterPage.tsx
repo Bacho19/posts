@@ -1,13 +1,25 @@
-import { Grid } from "@mui/material";
-import { FC } from "react";
+import styled from "styled-components";
 import AuthLayout from "../component/layouts/AuthLayout";
+import RegisterForm from "../component/RegisterForm";
 
-interface RegisterPageProps {}
+const StyledTitle = styled.h2`
+  font-size: 40px;
+  font-weight: 700;
+  color: #12345c;
+  margin-bottom: 28px;
+`;
 
-const RegisterPage: FC<RegisterPageProps> = ({}) => {
+const RegisterContentWrapper = styled.div`
+  width: 100%;
+`;
+
+const RegisterPage = () => {
   return (
     <AuthLayout>
-      <Grid>Register</Grid>
+      <RegisterContentWrapper>
+        <StyledTitle>Create Account</StyledTitle>
+        <RegisterForm />
+      </RegisterContentWrapper>
     </AuthLayout>
   );
 };

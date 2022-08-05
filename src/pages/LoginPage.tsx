@@ -1,10 +1,25 @@
-import { Grid } from "@mui/material";
+import styled from "styled-components";
 import AuthLayout from "../component/layouts/AuthLayout";
+import LoginForm from "../component/LoginForm";
+
+const StyledTitle = styled.h2`
+  font-size: 40px;
+  font-weight: 700;
+  color: #12345c;
+  margin-bottom: 28px;
+`;
+
+const LoginContentWrapper = styled.div`
+  width: 100%;
+`;
 
 const LoginPage = () => {
   return (
     <AuthLayout>
-      <Grid>Login</Grid>
+      <LoginContentWrapper>
+        <StyledTitle>Sign in</StyledTitle>
+        <LoginForm />
+      </LoginContentWrapper>
     </AuthLayout>
   );
 };

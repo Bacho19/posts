@@ -1,8 +1,8 @@
-import { PageWrapper, theme } from "./themes";
+import PageWrapper from "./component/layouts/PageWrapper";
 import MyRoutes from "./routes";
 
 const App = () => {
-  return <PageWrapper theme={theme}>{<MyRoutes />}</PageWrapper>;
+  return <PageWrapper>{<MyRoutes />}</PageWrapper>;
 };
 
 export default App;
