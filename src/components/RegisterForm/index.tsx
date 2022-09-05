@@ -7,9 +7,18 @@ import {
   AuthFormTextLink,
   InputWrapperFlex,
 } from "../LoginForm/styled";
-import RegisterValidatorItem from "../RegisterValidatorItem";
 import Button from "../UI/Button";
 import CustomInput from "../UI/CustomInput";
+import { useAppDispatch } from "../../store";
+import { registerAction } from "../../store/actions/auth";
+
+interface RegistrationValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 interface RegisterFormProps {}
 
@@ -23,12 +32,31 @@ const SignupSchema = Yup.object().shape({
     .max(50, "Last name is too long!")
     .required("This fiels is required"),
   email: Yup.string().email("Invalid email").required("This fiels is required"),
-  password: Yup.string().required("This fiels is required"),
-  confirmPassword: Yup.string().required("This fiels is required"),
+  password: Yup.string()
+    .required("This fiels is required")
+    .matches(/(?=.*[A-Z])/, {
+      message: "At least one capital character",
+    })
+    .min(5, "At least 5 characters"),
+  confirmPassword: Yup.string()
+    .required("This fiels is required")
+    .oneOf([Yup.ref("password"), null], "Passwords must match"),
 });
 
-const RegisterForm: FC<RegisterFormProps> = ({}) => {
+const RegisterForm: FC<RegisterFormProps> = () => {
   const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
+
+  const handleRegistration = (values: RegistrationValues) => {
+    const registerArguments = {
+      email: values.email,
+      fullName: `${values.firstName} ${values.lastName}`,
+      password: values.password,
+    };
+
+    dispatch(registerAction(registerArguments));
+  };
 
   return (
     <>
@@ -41,9 +69,7 @@ const RegisterForm: FC<RegisterFormProps> = ({}) => {
           confirmPassword: "",
         }}
         validationSchema={SignupSchema}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+        onSubmit={(values) => handleRegistration(values)}
       >
         {({ handleChange, values, handleSubmit, handleBlur, errors }) => (
           <form onSubmit={handleSubmit}>
@@ -96,18 +122,6 @@ const RegisterForm: FC<RegisterFormProps> = ({}) => {
                 errorMessage={errors.confirmPassword}
               />
             </InputWrapperFlex>
-            <RegisterValidatorItem
-              isChecked={false}
-              text="At least one 5 characters"
-            />
-            <RegisterValidatorItem
-              isChecked={false}
-              text="At least one capital character"
-            />
-            <RegisterValidatorItem
-              isChecked={false}
-              text="Confirm password must be same as password"
-            />
             <Button m="12px 0 0 0" type="submit">
               Sing Up
             </Button>

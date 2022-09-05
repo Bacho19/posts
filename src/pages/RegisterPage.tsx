@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import AuthLayout from "../component/layouts/AuthLayout";
-import RegisterForm from "../component/RegisterForm";
+import AuthLayout from "../components/layouts/AuthLayout";
+import RegisterForm from "../components/RegisterForm";
 
 const StyledTitle = styled.h2`
   font-size: 40px;

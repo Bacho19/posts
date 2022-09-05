@@ -4,18 +4,27 @@ import { Formik } from "formik";
 import Button from "../UI/Button";
 import CustomInput from "../UI/CustomInput";
 import { AuthFormText, AuthFormTextLink } from "./styled";
+import { useAppDispatch } from "../../store";
+import { loginAction } from "../../store/actions/auth";
 
 interface LoginFormProps {}
 
-const LoginForm: FC<LoginFormProps> = ({}) => {
+const LoginForm: FC<LoginFormProps> = () => {
   const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
 
   return (
     <>
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={(values) => {
-          console.log(values);
+          const loginArguments = {
+            email: values.email,
+            password: values.password,
+          };
+
+          dispatch(loginAction(loginArguments));
         }}
       >
         {({ values, handleChange, handleSubmit }) => (
