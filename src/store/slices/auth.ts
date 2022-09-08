@@ -6,18 +6,25 @@ interface IUser {
   email: string;
 }
 
+export interface IValidatorErrors {
+  value: string;
+  msg: string;
+  param: string;
+  location: string;
+}
+
 interface IAuthState {
   user: IUser;
   isAuth: boolean;
   isLoading: boolean;
-  error: string | null;
+  errors: IValidatorErrors[] | null;
 }
 
 const initialState: IAuthState = {
   user: {} as IUser,
   isAuth: false,
   isLoading: false,
-  error: null,
+  errors: null,
 };
 
 const authSlice = createSlice({
@@ -33,7 +40,7 @@ const authSlice = createSlice({
     },
     [registerAction.rejected.type]: (state, { payload }) => {
       state.isLoading = false;
-      state.error = payload.response.data.message;
+      state.errors = payload.response.data.errors;
     },
     [loginAction.pending.type]: (state) => {
       state.isLoading = true;
@@ -58,9 +65,8 @@ const authSlice = createSlice({
       state.isAuth = true;
       state.user = payload;
     },
-    [getMeAction.rejected.type]: (state, { payload }) => {
+    [getMeAction.rejected.type]: (state) => {
       state.isLoading = false;
-      state.error = payload.message;
     },
   },
 });

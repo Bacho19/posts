@@ -3,7 +3,8 @@ import { axiosInstance } from "../../api";
 
 interface RegisterActionArgs {
   email: string;
-  fullName: string;
+  firstName: string;
+  lastName: string;
   password: string;
 }
 
@@ -21,21 +22,20 @@ interface LoginActionArgs {
 export const registerAction = createAsyncThunk(
   "auth/register",
   async (
-    { email, fullName, password }: RegisterActionArgs,
+    { email, firstName, lastName, password }: RegisterActionArgs,
     { rejectWithValue }
   ) => {
     try {
       const res = await axiosInstance.post<AuthResponse>("/auth/register", {
         email,
-        fullName,
+        firstName,
+        lastName,
         password,
       });
 
       return res.data;
     } catch (e) {
       return rejectWithValue(e);
-      // console.error(e);
-      // throw new Error("something went wrong during the registration");
     }
   }
 );
