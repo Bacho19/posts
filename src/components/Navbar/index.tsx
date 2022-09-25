@@ -1,15 +1,23 @@
 import { FC } from "react";
+import { useAppDispatch } from "../../store";
+import { logout } from "../../store/slices/auth";
 import Button from "../UI/Button";
 import { ButtonWrapper, NavbarWrapper } from "./styled";
 
 interface NavbarProps {}
 
 const Navbar: FC<NavbarProps> = () => {
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <NavbarWrapper>
-      Navabr
+      Navabar
       <ButtonWrapper>
-        <Button>Logout</Button>
+        <Button onClick={handleLogout}>Logout</Button>
       </ButtonWrapper>
     </NavbarWrapper>
   );

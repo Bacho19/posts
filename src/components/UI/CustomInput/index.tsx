@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FocusEvent } from "react";
+import { FC, HTMLAttributes } from "react";
 import {
   InputLabel,
   StyledInput,
@@ -6,22 +6,12 @@ import {
   InputErrorMessage,
 } from "./styled";
 
-interface CustomInputProps {
+interface CustomInputProps extends HTMLAttributes<HTMLInputElement> {
   value: string;
-  onChange: {
-    (e: ChangeEvent<any>): void;
-    <T = string | ChangeEvent<any>>(field: T): T extends ChangeEvent<any>
-      ? void
-      : (e: string | ChangeEvent<any>) => void;
-  };
   label?: string;
   m?: string;
   type?: string;
   name?: string;
-  onBlur?: {
-    (e: FocusEvent<any, Element>): void;
-    <T = any>(fieldOrEvent: T): T extends string ? (e: any) => void : void;
-  };
   errorMessage?: string;
 }
 
