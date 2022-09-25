@@ -11,32 +11,12 @@ import CustomInput from "../UI/CustomInput";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { registerAction } from "../../store/actions/auth";
 import { mapFromErrors } from "../../utils";
+import { clearErrors, resetIsRegistered } from "../../store/slices/auth";
 
 interface RegisterFormProps {}
 
-// const SignupSchema = Yup.object().shape({
-//   firstName: Yup.string()
-//     .min(2, "First name is too short!")
-//     .max(50, "First name is too long!")
-//     .required("This fiels is required"),
-//   lastName: Yup.string()
-//     .min(2, "Last name is too short!")
-//     .max(50, "Last name is too long!")
-//     .required("This fiels is required"),
-//   email: Yup.string().email("Invalid email").required("This fiels is required"),
-//   password: Yup.string()
-//     .required("This fiels is required")
-//     .matches(/(?=.*[A-Z])/, {
-//       message: "At least one capital character",
-//     })
-//     .min(5, "At least 5 characters"),
-//   confirmPassword: Yup.string()
-//     .required("This fiels is required")
-//     .oneOf([Yup.ref("password"), null], "Passwords must match"),
-// });
-
 const RegisterForm: FC<RegisterFormProps> = () => {
-  const { errors } = useAppSelector((state) => state.auth);
+  const { errors, isRegistered } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
@@ -61,6 +41,7 @@ const RegisterForm: FC<RegisterFormProps> = () => {
         firstName: values.firstName,
         lastName: values.lastName,
         password: values.password,
+        confirmPassword: values.confirmPassword,
       };
       dispatch(registerAction(registerArguments));
     },
@@ -71,6 +52,17 @@ const RegisterForm: FC<RegisterFormProps> = () => {
 
     setErrors(formattedErrors);
   }, [errors, setErrors]);
+
+  useEffect(() => {
+    if (isRegistered) {
+      navigate("/login");
+    }
+
+    return () => {
+      dispatch(resetIsRegistered());
+      dispatch(clearErrors());
+    };
+  }, [isRegistered, navigate, dispatch]);
 
   return (
     <>

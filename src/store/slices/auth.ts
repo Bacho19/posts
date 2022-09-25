@@ -13,30 +13,40 @@ export interface IValidatorErrors {
   location: string;
 }
 
-interface IAuthState {
+interface AuthState {
   user: IUser;
   isAuth: boolean;
   isLoading: boolean;
   errors: IValidatorErrors[] | null;
+  isRegistered: boolean;
 }
 
-const initialState: IAuthState = {
+const initialState: AuthState = {
   user: {} as IUser,
   isAuth: false,
   isLoading: false,
   errors: null,
+  isRegistered: false,
 };
 
 const authSlice = createSlice({
   initialState,
   name: "auth",
-  reducers: {},
+  reducers: {
+    resetIsRegistered: (state) => {
+      state.isRegistered = false;
+    },
+    clearErrors: (state) => {
+      state.errors = null;
+    },
+  },
   extraReducers: {
     [registerAction.pending.type]: (state) => {
       state.isLoading = true;
     },
     [registerAction.fulfilled.type]: (state) => {
       state.isLoading = false;
+      state.isRegistered = true;
     },
     [registerAction.rejected.type]: (state, { payload }) => {
       state.isLoading = false;
@@ -54,8 +64,9 @@ const authSlice = createSlice({
       localStorage.setItem("token", payload.token);
       state.isAuth = true;
     },
-    [loginAction.rejected.type]: (state) => {
+    [loginAction.rejected.type]: (state, { payload }) => {
       state.isLoading = false;
+      state.errors = payload.response.data.errors;
     },
     [getMeAction.pending.type]: (state) => {
       state.isLoading = true;
@@ -72,3 +83,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
+export const { resetIsRegistered, clearErrors } = authSlice.actions;

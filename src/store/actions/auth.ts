@@ -6,6 +6,7 @@ interface RegisterActionArgs {
   firstName: string;
   lastName: string;
   password: string;
+  confirmPassword: string;
 }
 
 interface AuthResponse {
@@ -22,7 +23,13 @@ interface LoginActionArgs {
 export const registerAction = createAsyncThunk(
   "auth/register",
   async (
-    { email, firstName, lastName, password }: RegisterActionArgs,
+    {
+      email,
+      firstName,
+      lastName,
+      password,
+      confirmPassword,
+    }: RegisterActionArgs,
     { rejectWithValue }
   ) => {
     try {
@@ -31,6 +38,7 @@ export const registerAction = createAsyncThunk(
         firstName,
         lastName,
         password,
+        confirmPassword,
       });
 
       return res.data;
