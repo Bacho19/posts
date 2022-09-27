@@ -2,7 +2,12 @@ import { FC } from "react";
 import { useAppDispatch } from "../../store";
 import { logout } from "../../store/slices/auth";
 import Button from "../UI/Button";
-import { ButtonWrapper, NavbarWrapper } from "./styled";
+import {
+  ButtonWrapper,
+  NavbarContent,
+  NavbarWrapper,
+  StyledLogo,
+} from "./styled";
 
 interface NavbarProps {}
 
@@ -15,10 +20,12 @@ const Navbar: FC<NavbarProps> = () => {
 
   return (
     <NavbarWrapper>
-      Navabar
-      <ButtonWrapper>
-        <Button onClick={handleLogout}>Logout</Button>
-      </ButtonWrapper>
+      <NavbarContent>
+        <StyledLogo>POSTIQ</StyledLogo>
+        <ButtonWrapper>
+          <Button onClick={handleLogout}>Logout</Button>
+        </ButtonWrapper>
+      </NavbarContent>
     </NavbarWrapper>
   );
 };

@@ -10,6 +10,11 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Montserrat', 'Arial', sans-serif;
   }
+
+  a {
+    text-decoration: none;
+    color: #000;
+  }
 `;
 
 export default GlobalStyle;

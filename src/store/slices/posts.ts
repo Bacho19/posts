@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchPostsAction } from "../actions/posts";
 
-interface IPost {
+export interface IPost {
   postId: number;
   body: string;
   createdAt: string;
