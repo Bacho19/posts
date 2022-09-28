@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import PostsList from "../components/PostsList";
 
 const HomePageWrapper = styled.div`
-  padding: 0 150px;
+  padding: 0 150px 100px;
 `;
 
 interface HomePageProps {}

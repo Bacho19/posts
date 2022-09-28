@@ -55,7 +55,7 @@ const RegisterForm: FC<RegisterFormProps> = () => {
 
   useEffect(() => {
     if (isRegistered) {
-      navigate("/login");
+      navigate("/");
     }
 
     return () => {
@@ -117,7 +117,7 @@ const RegisterForm: FC<RegisterFormProps> = () => {
       </form>
       <AuthFormText>
         Already a member?{" "}
-        <AuthFormTextLink onClick={() => navigate("/login")}>
+        <AuthFormTextLink onClick={() => navigate("/")}>
           Sing In
         </AuthFormTextLink>
       </AuthFormText>

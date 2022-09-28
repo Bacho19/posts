@@ -12,13 +12,14 @@ import {
 interface PostCardProps extends IPost {}
 
 const PostCard: FC<PostCardProps> = ({
+  postId,
   title,
   createdAt,
   imageUrl,
   updatedAt,
 }) => {
   return (
-    <PostCardWrapper href="#">
+    <PostCardWrapper to={`post/${postId}`}>
       <PostCardImg
         src={
           imageUrl

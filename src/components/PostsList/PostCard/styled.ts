@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-export const PostCardWrapper = styled.a`
+export const PostCardWrapper = styled(Link)`
   margin-top: 30px;
   display: block;
   background-color: #f5f5f5;
