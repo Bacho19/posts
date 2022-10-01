@@ -73,7 +73,6 @@ const CreatePostPage: FC<CreatePostPageProps> = () => {
           onChange={(e) => setBody(e as string)}
           height={350}
         />
-        {/* <MDEditor.Markdown source={value} style={{ whiteSpace: "pre-wrap" }} /> */}
         <ButtonWrapper>
           <Button m="25px 0 0 0" onClick={handleCreatePost}>
             Share

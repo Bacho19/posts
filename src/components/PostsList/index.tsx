@@ -23,9 +23,11 @@ const PostsList: FC<PostsListProps> = () => {
 
   return (
     <div>
-      {posts.length
-        ? posts.map((item) => <PostCard {...item} key={item.postId} />)
-        : null}
+      {posts.length ? (
+        posts.map((item) => <PostCard {...item} key={item.postId} />)
+      ) : (
+        <p className="noItems">No posts yet</p>
+      )}
     </div>
   );
 };

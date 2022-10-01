@@ -8,6 +8,12 @@ export interface IPost {
   imageUrl: null | string;
   title: string;
   updatedAt: string;
+  user?: {
+    avatarUrl: null | string;
+    email: string;
+    firstName: string;
+    lastName: string;
+  };
 }
 
 interface PostsInitialState {

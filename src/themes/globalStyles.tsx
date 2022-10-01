@@ -15,6 +15,19 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: #000;
   }
+
+  .noItems {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 55px;
+    &.--error {
+      color: #bb2e1e;
+    }
+    &.--noMargins {
+      margin: 0;
+    }
+  }
 `;
 
 export default GlobalStyle;
