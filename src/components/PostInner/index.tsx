@@ -1,8 +1,10 @@
 import MDEditor from "@uiw/react-md-editor";
 import { FC, useEffect, useState } from "react";
+import { AiOutlineLike, AiOutlineComment } from "react-icons/ai";
 import { axiosInstance } from "../../api";
 import { IPost } from "../../store/slices/posts";
 import { getFormattedDate } from "../../utils";
+import CommentsModal from "../CommentsModal";
 import {
   PostAuthorBlock,
   PostAuthorDate,
@@ -11,6 +13,7 @@ import {
   PostHeader,
   PostInnerBlock,
   PostInnerBlockBtn,
+  PostInnerBlockIcon,
   PostTitle,
 } from "./styled";
 
@@ -22,6 +25,8 @@ const PostInner: FC<PostInnerProps> = ({ postId }) => {
   const [post, setPost] = useState<IPost>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
+  const [isCommentsModalOpen, setIsCommentsModalOpen] =
+    useState<boolean>(false);
 
   const fetchPost = async () => {
     try {
@@ -38,6 +43,8 @@ const PostInner: FC<PostInnerProps> = ({ postId }) => {
   useEffect(() => {
     fetchPost();
   }, []);
+
+  const handleModal = () => setIsCommentsModalOpen((prev) => !prev);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -73,9 +80,20 @@ const PostInner: FC<PostInnerProps> = ({ postId }) => {
         style={{ whiteSpace: "pre-wrap" }}
       />
       <PostInnerBlock>
-        <PostInnerBlockBtn>0 Likes</PostInnerBlockBtn>
-        <PostInnerBlockBtn>0 Comments</PostInnerBlockBtn>
+        <PostInnerBlockBtn>
+          <PostInnerBlockIcon>
+            <AiOutlineLike />
+          </PostInnerBlockIcon>
+          0 Likes
+        </PostInnerBlockBtn>
+        <PostInnerBlockBtn onClick={handleModal}>
+          <PostInnerBlockIcon>
+            <AiOutlineComment />
+          </PostInnerBlockIcon>
+          0 Comments
+        </PostInnerBlockBtn>
       </PostInnerBlock>
+      <CommentsModal isOpen={isCommentsModalOpen} handleModal={handleModal} />
     </div>
   );
 };

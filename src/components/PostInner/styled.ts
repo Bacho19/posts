@@ -50,9 +50,9 @@ export const PostInnerBlock = styled.div`
   height: 50px;
   background-color: #fff;
   border-radius: 25px;
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.35);
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.35);
-  -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);
   display: flex;
 `;
 
@@ -67,4 +67,9 @@ export const PostInnerBlockBtn = styled.div`
   &:hover {
     background-color: #f1f1f1;
   }
+`;
+
+export const PostInnerBlockIcon = styled.div`
+  margin: 3px 15px 0 0;
+  transform: scale(1.5);
 `;
