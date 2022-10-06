@@ -2,6 +2,7 @@ import MDEditor from "@uiw/react-md-editor";
 import { FC, useEffect, useState } from "react";
 import { AiOutlineLike, AiOutlineComment } from "react-icons/ai";
 import { axiosInstance } from "../../api";
+import { useAppSelector } from "../../store";
 import { IPost } from "../../store/slices/posts";
 import { getFormattedDate } from "../../utils";
 import CommentsModal from "../CommentsModal";
@@ -27,6 +28,8 @@ const PostInner: FC<PostInnerProps> = ({ postId }) => {
   const [isError, setIsError] = useState<boolean>(false);
   const [isCommentsModalOpen, setIsCommentsModalOpen] =
     useState<boolean>(false);
+
+  const { commentsCount } = useAppSelector((state) => state.comments);
 
   const fetchPost = async () => {
     try {
@@ -60,7 +63,7 @@ const PostInner: FC<PostInnerProps> = ({ postId }) => {
         <PostTitle>{post?.title}</PostTitle>
         <PostAuthorBlock>
           <PostAuthorHeader>
-            <PostAuthorImg src="https://media.wired.com/photos/598e35fb99d76447c4eb1f28/master/pass/phonepicutres-TA.jpg" />
+            <PostAuthorImg src={post?.user?.avatarUrl ?? ""} />
             <p>
               {post?.user?.firstName} {post?.user?.lastName}
             </p>
@@ -80,20 +83,24 @@ const PostInner: FC<PostInnerProps> = ({ postId }) => {
         style={{ whiteSpace: "pre-wrap" }}
       />
       <PostInnerBlock>
-        <PostInnerBlockBtn>
+        <PostInnerBlockBtn direction="left">
           <PostInnerBlockIcon>
             <AiOutlineLike />
           </PostInnerBlockIcon>
           0 Likes
         </PostInnerBlockBtn>
-        <PostInnerBlockBtn onClick={handleModal}>
+        <PostInnerBlockBtn direction="right" onClick={handleModal}>
           <PostInnerBlockIcon>
             <AiOutlineComment />
           </PostInnerBlockIcon>
-          0 Comments
+          {commentsCount} Comments
         </PostInnerBlockBtn>
       </PostInnerBlock>
-      <CommentsModal isOpen={isCommentsModalOpen} handleModal={handleModal} />
+      <CommentsModal
+        isOpen={isCommentsModalOpen}
+        handleModal={handleModal}
+        postId={postId}
+      />
     </div>
   );
 };

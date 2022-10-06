@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { IComment } from "../../../store/slices/comments";
 import {
   CommentAuthor,
   CommentImg,
@@ -6,15 +7,19 @@ import {
   CommentWrapper,
 } from "./styled";
 
-interface CommentItemProps {}
+interface CommentItemProps {
+  comment: IComment;
+}
 
-const CommentItem: FC<CommentItemProps> = () => {
+const CommentItem: FC<CommentItemProps> = ({ comment }) => {
   return (
     <CommentWrapper>
-      <CommentImg />
+      <CommentImg src={comment.user.avatarUrl ?? ""} />
       <div>
-        <CommentAuthor>Bachito Usubovsky</CommentAuthor>
-        <CommentText>comment item</CommentText>
+        <CommentAuthor>
+          {comment.user.firstName} {comment.user.lastName}
+        </CommentAuthor>
+        <CommentText>{comment.text}</CommentText>
       </div>
     </CommentWrapper>
   );

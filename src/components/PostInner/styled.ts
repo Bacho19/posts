@@ -56,12 +56,19 @@ export const PostInnerBlock = styled.div`
   display: flex;
 `;
 
-export const PostInnerBlockBtn = styled.div`
+export const PostInnerBlockBtn = styled.div<{ direction: "left" | "right" }>`
   height: 100%;
   width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-top-right-radius: ${({ direction }) =>
+    direction === "right" && "25px"};
+  border-bottom-right-radius: ${({ direction }) =>
+    direction === "right" && "25px"};
+  border-top-left-radius: ${({ direction }) => direction === "left" && "25px"};
+  border-bottom-left-radius: ${({ direction }) =>
+    direction === "left" && "25px"};
   transition: 0.3s;
   cursor: pointer;
   &:hover {
