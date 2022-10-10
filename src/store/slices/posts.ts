@@ -14,6 +14,8 @@ export interface IPost {
     firstName: string;
     lastName: string;
   };
+  isLiked: boolean;
+  likesCount: number;
 }
 
 interface PostsInitialState {

@@ -29,7 +29,7 @@ const initialState: ICommentsState = {
 };
 
 const commentsSlice = createSlice({
-  name: "comments",
+  name: "postsComments",
   initialState,
   extraReducers: {
     [fetchComments.pending.type]: (state) => {

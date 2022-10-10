@@ -56,7 +56,12 @@ export const PostInnerBlock = styled.div`
   display: flex;
 `;
 
-export const PostInnerBlockBtn = styled.div<{ direction: "left" | "right" }>`
+export const PostInnerBlockBtn = styled.button<{ direction: "left" | "right" }>`
+  background-color: #fff;
+  border: none;
+  outline: none;
+  font-weight: 300;
+  font-size: 16px;
   height: 100%;
   width: 50%;
   display: flex;

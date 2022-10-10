@@ -1,9 +1,8 @@
 import MDEditor from "@uiw/react-md-editor";
 import { FC, useEffect, useState } from "react";
-import { AiOutlineLike, AiOutlineComment } from "react-icons/ai";
-import { axiosInstance } from "../../api";
-import { useAppSelector } from "../../store";
-import { IPost } from "../../store/slices/posts";
+import { AiOutlineLike, AiFillLike, AiOutlineComment } from "react-icons/ai";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { dislikePost, fetchPost, likePost } from "../../store/actions/post";
 import { getFormattedDate } from "../../utils";
 import CommentsModal from "../CommentsModal";
 import {
@@ -23,37 +22,29 @@ interface PostInnerProps {
 }
 
 const PostInner: FC<PostInnerProps> = ({ postId }) => {
-  const [post, setPost] = useState<IPost>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isError, setIsError] = useState<boolean>(false);
   const [isCommentsModalOpen, setIsCommentsModalOpen] =
     useState<boolean>(false);
 
+  const dispatch = useAppDispatch();
+
+  const { post, isPostLoading, postError, likesCount, isLiked, isLikeLoading } =
+    useAppSelector((state) => state.post);
   const { commentsCount } = useAppSelector((state) => state.comments);
 
-  const fetchPost = async () => {
-    try {
-      const res = await axiosInstance.get(`posts/${postId}`);
-      setPost(res.data);
-    } catch (e) {
-      console.error(e);
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchPost();
-  }, []);
+    dispatch(fetchPost({ postId }));
+  }, [dispatch, postId]);
 
   const handleModal = () => setIsCommentsModalOpen((prev) => !prev);
 
-  if (isLoading) {
+  const handleLikePost = () => dispatch(likePost({ postId }));
+  const handleDislikePost = () => dispatch(dislikePost({ postId }));
+
+  if (isPostLoading) {
     return <p>Loading...</p>;
   }
 
-  if (isError) {
+  if (postError) {
     return <p className="noItems --error --noMargins">Something went wrong</p>;
   }
 
@@ -83,11 +74,15 @@ const PostInner: FC<PostInnerProps> = ({ postId }) => {
         style={{ whiteSpace: "pre-wrap" }}
       />
       <PostInnerBlock>
-        <PostInnerBlockBtn direction="left">
+        <PostInnerBlockBtn
+          direction="left"
+          onClick={isLiked ? handleDislikePost : handleLikePost}
+          disabled={isLikeLoading}
+        >
           <PostInnerBlockIcon>
-            <AiOutlineLike />
+            {isLiked ? <AiFillLike /> : <AiOutlineLike />}
           </PostInnerBlockIcon>
-          0 Likes
+          {likesCount} Likes
         </PostInnerBlockBtn>
         <PostInnerBlockBtn direction="right" onClick={handleModal}>
           <PostInnerBlockIcon>
