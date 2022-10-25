@@ -1,18 +1,20 @@
-import { FC, useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "../../store";
-import { fetchPostsAction } from "../../store/actions/posts";
+import { FC } from "react";
+import { IPost } from "../../store/slices/posts";
 import PostCard from "./PostCard";
 
-interface PostsListProps {}
+interface PostsListProps {
+  posts: IPost[];
+  loading: boolean;
+  error: string | null;
+  isMyPosts: boolean;
+}
 
-const PostsList: FC<PostsListProps> = () => {
-  const { posts, loading, error } = useAppSelector((state) => state.posts);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchPostsAction());
-  }, [dispatch]);
-
+const PostsList: FC<PostsListProps> = ({
+  posts,
+  error,
+  loading,
+  isMyPosts,
+}) => {
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -24,7 +26,9 @@ const PostsList: FC<PostsListProps> = () => {
   return (
     <div>
       {posts.length ? (
-        posts.map((item) => <PostCard {...item} key={item.postId} />)
+        posts.map((item) => (
+          <PostCard {...item} isMyPosts={isMyPosts} key={item.postId} />
+        ))
       ) : (
         <p className="noItems">No posts yet</p>
       )}

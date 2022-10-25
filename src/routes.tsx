@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import CreatePostPage from "./pages/CreatePostPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import MyPostsPage from "./pages/MyPostsPage";
 import PostInnerPage from "./pages/PostInnerPage";
 import RegisterPage from "./pages/RegisterPage";
 import { useAppSelector } from "./store";
@@ -24,6 +25,7 @@ const MyRoutes: FC<MyRoutesProps> = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/post/:id" element={<PostInnerPage />} />
           <Route path="/create-post" element={<CreatePostPage />} />
+          <Route path="/my-posts" element={<MyPostsPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       )}

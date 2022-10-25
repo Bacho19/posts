@@ -78,17 +78,22 @@ const PostInner: FC<PostInnerProps> = ({ postId }) => {
           direction="left"
           onClick={isLiked ? handleDislikePost : handleLikePost}
           disabled={isLikeLoading}
+          title={`${likesCount} Likes`}
         >
           <PostInnerBlockIcon>
             {isLiked ? <AiFillLike /> : <AiOutlineLike />}
           </PostInnerBlockIcon>
-          {likesCount} Likes
+          {likesCount < 1000 ? likesCount : "999+"} Likes
         </PostInnerBlockBtn>
-        <PostInnerBlockBtn direction="right" onClick={handleModal}>
+        <PostInnerBlockBtn
+          direction="right"
+          onClick={handleModal}
+          title={`${commentsCount} Comments`}
+        >
           <PostInnerBlockIcon>
             <AiOutlineComment />
           </PostInnerBlockIcon>
-          {commentsCount} Comments
+          {commentsCount < 1000 ? commentsCount : "999+"} Comments
         </PostInnerBlockBtn>
       </PostInnerBlock>
       <CommentsModal

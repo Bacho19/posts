@@ -29,6 +29,7 @@ const Navbar: FC<NavbarProps> = () => {
         <StyledLogo>POSTIQ</StyledLogo>
         <NavbarMenu>
           <StyledLink to="/">Posts</StyledLink>
+          <StyledLink to="/my-posts">My posts</StyledLink>
           <StyledLink to="/create-post">Create post</StyledLink>
         </NavbarMenu>
         <ButtonWrapper>
